@@ -146,6 +146,37 @@ var AUDIO_FOLDER = "audio/";
     }
   }
 
+  /* Latest videos grid (watch page). videos.json is refreshed automatically by tools/update_videos.py */
+  var vgrid = $("#vgrid");
+  if (vgrid && window.fetch) {
+    fetch("videos.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) {
+        if (!Array.isArray(list)) return;
+        var shown = 0;
+        list.forEach(function (v) {
+          if (!v || typeof v.id !== "string" || !/^[\w-]{11}$/.test(v.id)) return;
+          var title = (typeof v.title === "string" && v.title) ? v.title : "Video";
+          var card = doc.createElement("div"); card.className = "vcard";
+          var wrap = doc.createElement("div"); wrap.className = "video";
+          var b = doc.createElement("button");
+          b.type = "button"; b.setAttribute("aria-label", "Play: " + title);
+          b.style.backgroundImage = "url(https://i.ytimg.com/vi/" + encodeURIComponent(v.id) + "/hqdefault.jpg)";
+          b.addEventListener("click", function () {
+            var f = doc.createElement("iframe");
+            f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(v.id) + "?autoplay=1&rel=0";
+            f.title = title; f.allow = "autoplay; encrypted-media; picture-in-picture"; f.allowFullscreen = true;
+            wrap.replaceChild(f, b);
+          });
+          wrap.appendChild(b);
+          var t = doc.createElement("p"); t.className = "vcard__title"; t.textContent = title;
+          card.appendChild(wrap); card.appendChild(t); vgrid.appendChild(card); shown++;
+        });
+        if (shown) { vgrid.hidden = false; var h = $("#vgridH"); if (h) h.hidden = false; }
+      })
+      .catch(function () {});
+  }
+
   /* Forms (booking and guest book) */
   function wireForm(form, status, rules, okMsg) {
     if (!form) return;

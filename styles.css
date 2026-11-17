@@ -121,6 +121,11 @@ a{color:var(--brass)}
 .empty{border:1px dashed var(--line);border-radius:10px;padding:28px;color:var(--muted);margin:0}
 .empty strong{color:var(--ivory);display:block;margin-bottom:.3rem}
 .empty a{font-weight:600}
+.vgrid__h{margin-top:2.6rem}
+.vgrid{display:grid;gap:22px;margin-top:1rem}
+.vgrid[hidden],.vgrid__h[hidden]{display:none}
+.vcard__title{margin:.6rem 0 0;font:500 1rem/1.4 var(--sans);color:var(--ivory)}
+@media (min-width:560px){.vgrid{grid-template-columns:repeat(2,1fr);gap:26px 22px}}
 
 /* gallery */
 .gallery{display:grid;gap:14px}
