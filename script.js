@@ -6,6 +6,8 @@ var YOUTUBE_CHANNEL_URL = "https://www.youtube.com/channel/UCyCuoStgyosDfWW4lr-F
 var YOUTUBE_PLAYLIST_ID = "UUyCuoStgyosDfWW4lr-FT1A";
 // Or list individual video IDs (the part after v= in a YouTube link). Used when no playlist ID is set.
 var YOUTUBE_VIDEO_IDS = [];
+// Welcome screen: seconds before the site opens by itself (0 turns this off). Visitors can also swipe, scroll, press a key or tap the button.
+var WELCOME_AUTO_SECONDS = 8;
 // Form service address (Formspree, Basin, Getform and similar). Leave empty for a preview-only form.
 var FORM_ENDPOINT = "";
 // Sample tracks: put MP3 files in the audio folder, named after each track, e.g. audio/ololufe.mp3
@@ -25,11 +27,34 @@ var AUDIO_FOLDER = "audio/";
   /* Welcome screen (home page only) */
   var welcome = $("#welcome"), enter = $("#enter");
   if (welcome) {
+    var autoTimer = null, touchY = null;
+    var stopAuto = function () { if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; } };
+    var onWheel = function (e) { if (e.deltaY > 8) openSite(); };
+    var onTouchStart = function (e) { touchY = e.touches && e.touches[0] ? e.touches[0].clientY : null; };
+    var onTouchMove = function (e) {
+      if (touchY === null || !e.touches || !e.touches[0]) return;
+      if (touchY - e.touches[0].clientY > 40) openSite();
+    };
+    var onKey = function (e) {
+      if (welcome.classList.contains("is-open")) return;
+      var k = e.key;
+      if (k === "Escape" || k === "ArrowDown" || k === "PageDown" || k === " " || k === "Spacebar") {
+        if (k === " " && doc.activeElement === enter) return; /* the button handles its own space press */
+        if (k !== "Escape") e.preventDefault();
+        openSite();
+      }
+    };
     var openSite = function () {
+      if (welcome.classList.contains("is-open")) return;
+      stopAuto();
       welcome.classList.add("is-open");
       doc.body.classList.remove("locked");
       welcome.setAttribute("aria-hidden", "true");
       store(false, "ja-welcomed", "1");
+      welcome.removeEventListener("wheel", onWheel);
+      welcome.removeEventListener("touchstart", onTouchStart);
+      welcome.removeEventListener("touchmove", onTouchMove);
+      doc.removeEventListener("keydown", onKey);
     };
     if (store(true, "ja-welcomed")) {
       welcome.classList.add("is-open");
@@ -37,9 +62,18 @@ var AUDIO_FOLDER = "audio/";
     } else {
       doc.body.classList.add("locked");
       enter.focus();
-      doc.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && !welcome.classList.contains("is-open")) openSite();
-      });
+      doc.addEventListener("keydown", onKey);
+      welcome.addEventListener("wheel", onWheel, { passive: true });
+      welcome.addEventListener("touchstart", onTouchStart, { passive: true });
+      welcome.addEventListener("touchmove", onTouchMove, { passive: true });
+      if (WELCOME_AUTO_SECONDS > 0) {
+        var ms = WELCOME_AUTO_SECONDS * 1000;
+        enter.style.setProperty("--auto", WELCOME_AUTO_SECONDS + "s");
+        welcome.classList.add("is-timing");
+        autoTimer = setTimeout(openSite, ms);
+        /* hovering over the button pauses the countdown so nobody is rushed */
+        enter.addEventListener("mouseenter", function () { stopAuto(); welcome.classList.remove("is-timing"); });
+      }
     }
     enter.addEventListener("click", openSite);
   }

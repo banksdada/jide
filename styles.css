@@ -406,3 +406,47 @@ body.playing .eq i{animation-duration:calc(var(--s,1.4s)*.45)}
 @keyframes bookShimmer{0%{left:-60%}55%,100%{left:130%}}
 @keyframes bookBar{to{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.bookbar__eq i{transform:scaleY(.7)!important}}
+
+
+/* ---------- Home hero: close-up portrait with the name across the base ---------- */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hero.hero--name{display:grid;grid-template-columns:1fr;gap:0;max-width:1500px;padding:76px var(--gutter) 0;overflow:visible;align-items:stretch}
+.hero__portrait{position:relative;z-index:1;overflow:hidden;height:min(46svh,440px);min-height:280px;-webkit-mask-image:linear-gradient(180deg,#000 66%,transparent 100%);mask-image:linear-gradient(180deg,#000 66%,transparent 100%)}
+.hero__portrait::before{content:"";position:absolute;inset:6% 0 0;background:radial-gradient(closest-side at 50% 58%,rgba(201,162,75,.42),rgba(201,162,75,.12) 55%,transparent 78%);z-index:-1;animation:glow 7s ease-in-out infinite alternate}
+.hero__portrait img{position:absolute;left:50%;top:0;height:142%;width:auto;max-width:none;transform:translateX(-50%);animation:heroIn 1.1s .1s var(--ease) both}
+.hero__name{position:relative;z-index:0;margin:-3.2vw 0 0;padding:0;font:inherit;line-height:0}
+.hero__jide,.hero__arowolo{display:block;width:100%;height:auto;overflow:visible}
+.hero__name text{font-family:var(--serif);font-variation-settings:"opsz" 96}
+.hero__jide{animation:rise 1.1s .3s var(--ease) both}
+.hero__arowolo{width:62%;margin:clamp(14px,2.4vw,30px) auto 0;animation:rise 1.1s .5s var(--ease) both}
+.hero__intro{position:relative;z-index:2;text-align:center;padding:clamp(24px,4vw,40px) 0 clamp(48px,8vw,72px)}
+.hero__intro .kicker{margin:0 0 .6rem}
+.hero__tagline{font:500 clamp(1.5rem,5.2vw,2.2rem)/1.15 var(--serif);margin:0 0 .9rem}
+.hero__tagline em{color:var(--brass)}
+.hero__intro .hero__lede{margin:0 auto 1.6rem;max-width:46ch}
+.hero__intro .hero__cta{justify-content:center}
+@media (min-width:960px){
+  .hero.hero--name{padding-top:88px}
+  .hero__portrait{height:min(52svh,560px)}
+  .hero__arowolo{width:54%}
+  .hero__intro{position:absolute;left:var(--gutter);top:140px;bottom:auto;text-align:left;padding:0;max-width:340px}
+  .hero__intro .hero__lede{margin-left:0}
+  .hero__intro .hero__cta{justify-content:flex-start}
+  .hero__tagline{font-size:clamp(1.6rem,2.4vw,2.3rem)}
+}
+@media (min-width:960px) and (max-width:1199px){ .hero__intro{max-width:260px} .hero__intro .hero__lede{font-size:1rem} }
+@media (prefers-reduced-motion:reduce){.hero__portrait img,.hero__jide,.hero__arowolo,.hero__portrait::before{animation:none}}
+
+@keyframes heroIn{from{opacity:0;transform:translateX(-50%) translateY(24px)}to{opacity:1;transform:translateX(-50%)}}
+.hero-wrap .eq--wide{height:84px}
+
+/* welcome: opens by itself, with a thin countdown line on the button */
+#enter{position:relative;overflow:hidden}
+.welcome.is-timing #enter::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--ink);opacity:.55;transform-origin:left;transform:scaleX(0);animation:enterFill var(--auto,8s) linear forwards}
+@keyframes enterFill{to{transform:scaleX(1)}}
+/* phones in portrait: the Enter button sits at the base of the screen */
+@media (max-width:559px),(max-width:819px) and (orientation:portrait){
+  .welcome__inner{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+  .welcome #enter{position:absolute;left:var(--gutter);right:var(--gutter);bottom:max(20px,env(safe-area-inset-bottom,0px));width:auto;z-index:3}
+}
+@media (prefers-reduced-motion:reduce){.welcome.is-timing #enter::after{animation-duration:0s;display:none}.hero__portrait img{animation:none;opacity:1}}
