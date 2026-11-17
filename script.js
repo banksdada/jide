@@ -1,9 +1,9 @@
 /* ---------- Settings you can edit ---------- */
 // YouTube channel address
-var YOUTUBE_CHANNEL_URL = "https://www.youtube.com/channel/UC2qJ_YVOiYuOIZnjdBg4coA";
+var YOUTUBE_CHANNEL_URL = "https://www.youtube.com/channel/UCyCuoStgyosDfWW4lr-FT1A";
 // Embedded player showing the channel's uploads (the channel ID with UC changed to UU).
 // If it shows "video unavailable", replace with an album playlist ID from YouTube (starts with OLAK5uy_ or PL).
-var YOUTUBE_PLAYLIST_ID = "UU2qJ_YVOiYuOIZnjdBg4coA";
+var YOUTUBE_PLAYLIST_ID = "UUyCuoStgyosDfWW4lr-FT1A";
 // Or list individual video IDs (the part after v= in a YouTube link). Used when no playlist ID is set.
 var YOUTUBE_VIDEO_IDS = [];
 // Form service address (Formspree, Basin, Getform and similar). Leave empty for a preview-only form.

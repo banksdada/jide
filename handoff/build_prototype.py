@@ -1,7 +1,7 @@
 import re, random, os
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..') + os.sep
 SITE = 'https://www.jidearowolo.com/'
-YT = 'https://www.youtube.com/channel/UC2qJ_YVOiYuOIZnjdBg4coA'
+YT = 'https://www.youtube.com/channel/UCyCuoStgyosDfWW4lr-FT1A'
 
 def eq(n, cls=''):
     random.seed(n * 7 + 3)
