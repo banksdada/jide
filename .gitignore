@@ -1,0 +1,65 @@
+# Composer
+/vendor/
+/composer.lock
+
+# Laravel
+/node_modules/
+/public/assets/
+/public/hot/
+/storage/
+/storage/framework/
+/storage/logs/
+/storage/framework/views
+
+# Database
+/*.sqlite
+/*.sqlite-journal
+
+# Environment files
+/.env
+/.env.local
+/.env.production
+/.env.test
+
+# IDE
+/.vscode/
+/.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Testing
+.phpunit.result.cache
+
+# Node
+package-lock.json
+
+# Docker
+Dockerfile*
+docker-compose*
+*.dockerignore
+
+# Others
+.htaccess
+.htpasswd
+
+# Local backups
+*.sql.bak
+*.sql.gz
+
+# Misc
+*.pem
+*.key
+*.crt
+
+# Temporary files
+tmp/
+*.tmp
+*.temp

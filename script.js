@@ -1,0 +1,201 @@
+/* ---------- Settings you can edit ---------- */
+// YouTube channel address
+var YOUTUBE_CHANNEL_URL = "https://www.youtube.com/channel/UC2qJ_YVOiYuOIZnjdBg4coA";
+// Embedded player showing the channel's uploads (the channel ID with UC changed to UU).
+// If it shows "video unavailable", replace with an album playlist ID from YouTube (starts with OLAK5uy_ or PL).
+var YOUTUBE_PLAYLIST_ID = "UU2qJ_YVOiYuOIZnjdBg4coA";
+// Or list individual video IDs (the part after v= in a YouTube link). Used when no playlist ID is set.
+var YOUTUBE_VIDEO_IDS = [];
+// Form service address (Formspree, Basin, Getform and similar). Leave empty for a preview-only form.
+var FORM_ENDPOINT = "";
+// Sample tracks: put MP3 files in the audio folder, named after each track, e.g. audio/ololufe.mp3
+var AUDIO_FOLDER = "audio/";
+/* ------------------------------------------- */
+
+(function () {
+  "use strict";
+  var doc = document;
+  doc.documentElement.classList.add("js");
+  function $(s, c) { return (c || doc).querySelector(s); }
+  function $all(s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); }
+  function store(get, key, val) {
+    try { return get ? sessionStorage.getItem(key) : sessionStorage.setItem(key, val); } catch (e) { return null; }
+  }
+
+  /* Welcome screen (home page only) */
+  var welcome = $("#welcome"), enter = $("#enter");
+  if (welcome) {
+    var openSite = function () {
+      welcome.classList.add("is-open");
+      doc.body.classList.remove("locked");
+      welcome.setAttribute("aria-hidden", "true");
+      store(false, "ja-welcomed", "1");
+    };
+    if (store(true, "ja-welcomed")) {
+      welcome.classList.add("is-open");
+      welcome.setAttribute("aria-hidden", "true");
+    } else {
+      doc.body.classList.add("locked");
+      enter.focus();
+      doc.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !welcome.classList.contains("is-open")) openSite();
+      });
+    }
+    enter.addEventListener("click", openSite);
+  }
+
+  /* Nav */
+  var toggle = $("#navToggle"), links = $("#navLinks");
+  function setNav(open) {
+    links.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  toggle.addEventListener("click", function () { setNav(!links.classList.contains("is-open")); });
+  $all("a", links).forEach(function (a) { a.addEventListener("click", function () { setNav(false); }); });
+
+  /* Scroll progress */
+  var bar = $("#progress"), ticking = false;
+  function update() {
+    var h = doc.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (h > 0 ? Math.min(scrollY / h, 1) : 0) + ")";
+    ticking = false;
+  }
+  addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+
+  /* Reveal blocks when they scroll into view */
+  var revealEls = $all("[data-reveal]");
+  revealEls.forEach(function (el) { el.classList.add("reveal"); });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* Sample player (music page) */
+  var player = $("#player");
+  if (player) {
+    var audio = $("#audio"), playBtn = $("#playBtn"), icon = $("#playIcon");
+    var pTitle = $("#pTitle"), pMsg = $("#pMsg"), current = null;
+    var PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z", PLAY = "M8 5v14l11-7z";
+    var setIcon = function (playing) {
+      icon.setAttribute("d", playing ? PAUSE : PLAY);
+      playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
+      doc.body.classList.toggle("playing", playing);
+    };
+    var clearPlaying = function () { $all(".tracks button.is-playing").forEach(function (b) { b.classList.remove("is-playing"); }); };
+    $all(".tracks button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (current === btn) { if (audio.paused) audio.play(); else audio.pause(); return; }
+        current = btn; clearPlaying(); btn.classList.add("is-playing");
+        var album = btn.closest(".panel");
+        pTitle.textContent = btn.textContent;
+        pMsg.textContent = $("h2", album).childNodes[0].textContent.trim();
+        player.hidden = false; setIcon(true);
+        audio.src = AUDIO_FOLDER + btn.getAttribute("data-track") + ".mp3";
+        var p = audio.play();
+        if (p && p.catch) p.catch(function () {});
+      });
+    });
+    audio.addEventListener("play", function () { setIcon(true); });
+    audio.addEventListener("pause", function () { setIcon(false); });
+    audio.addEventListener("ended", function () { setIcon(false); clearPlaying(); });
+    audio.addEventListener("error", function () { setIcon(false); pMsg.textContent = "Sample not added yet. Listen on YouTube."; });
+    playBtn.addEventListener("click", function () {
+      if (!audio.src) return;
+      if (audio.paused) audio.play(); else audio.pause();
+    });
+    $("#pClose").addEventListener("click", function () {
+      audio.pause(); player.hidden = true; clearPlaying(); current = null;
+    });
+  }
+
+  /* YouTube (watch page) */
+  var videos = $("#videos");
+  if (videos) {
+    if (YOUTUBE_PLAYLIST_ID) {
+      var pw = doc.createElement("div"); pw.className = "video video--wide";
+      var pf = doc.createElement("iframe");
+      pf.src = "https://www.youtube-nocookie.com/embed/videoseries?list=" + encodeURIComponent(YOUTUBE_PLAYLIST_ID);
+      pf.title = "Jide Arowolo on YouTube"; pf.loading = "lazy";
+      pf.allow = "encrypted-media; picture-in-picture"; pf.allowFullscreen = true;
+      pw.appendChild(pf); videos.appendChild(pw);
+    } else if (YOUTUBE_VIDEO_IDS.length) {
+      YOUTUBE_VIDEO_IDS.forEach(function (id) {
+        var wrap = doc.createElement("div"); wrap.className = "video";
+        var b = doc.createElement("button");
+        b.type = "button"; b.setAttribute("aria-label", "Play video");
+        b.style.backgroundImage = "url(https://i.ytimg.com/vi/" + encodeURIComponent(id) + "/hqdefault.jpg)";
+        b.addEventListener("click", function () {
+          var f = doc.createElement("iframe");
+          f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
+          f.title = "Jide Arowolo on YouTube"; f.allow = "autoplay; encrypted-media; picture-in-picture"; f.allowFullscreen = true;
+          wrap.replaceChild(f, b);
+        });
+        wrap.appendChild(b); videos.appendChild(wrap);
+      });
+    } else {
+      var e = doc.createElement("p"); e.className = "empty";
+      e.innerHTML = "<strong>Videos are on the way.</strong> Live performances and music videos will appear here.";
+      videos.appendChild(e);
+    }
+  }
+
+  /* Forms (booking and guest book) */
+  function wireForm(form, status, rules, okMsg) {
+    if (!form) return;
+    function fail(msg, field) {
+      status.textContent = msg; status.classList.add("is-error");
+      if (field) { field.classList.add("err"); field.focus(); }
+    }
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      status.classList.remove("is-error"); status.textContent = "";
+      $all(".err", form).forEach(function (f) { f.classList.remove("err"); });
+      for (var i = 0; i < rules.length; i++) {
+        var r = rules[i], el = $(r.sel, form);
+        if (!r.ok(el.value)) return fail(r.msg, el);
+      }
+      if (!FORM_ENDPOINT) { status.textContent = "Preview only: the form is not connected yet, so nothing was sent."; return; }
+      status.textContent = "Sending...";
+      fetch(FORM_ENDPOINT, { method: "POST", headers: { "Accept": "application/json" }, body: new FormData(form) })
+        .then(function (r) { if (!r.ok) throw new Error(); form.reset(); status.textContent = okMsg; })
+        .catch(function () { fail("Could not send. Check your connection and try again."); });
+    });
+  }
+  wireForm($("#bookForm"), $("#formStatus"), [
+    { sel: "#name", ok: function (v) { return v.trim().length > 0; }, msg: "Enter your name." },
+    { sel: "#email", ok: function (v) { return /^\S+@\S+\.\S+$/.test(v); }, msg: "Enter an email address like name@example.com." },
+    { sel: "#type", ok: function (v) { return !!v; }, msg: "Choose what you are booking for." },
+    { sel: "#msg", ok: function (v) { return v.trim().length >= 15; }, msg: "Add a few details about your event (at least a sentence)." }
+  ], "Sent. You will get a reply by email.");
+  wireForm($("#guestForm"), $("#guestStatus"), [
+    { sel: "#gname", ok: function (v) { return v.trim().length > 0; }, msg: "Enter your name." },
+    { sel: "#gmsg", ok: function (v) { return v.trim().length >= 5; }, msg: "Write a short message." }
+  ], "Thank you. Your message will appear after review.");
+
+  var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
+})();
+
+/* Archive lightbox: enlarge a scan in a dialog; without JS the link opens the image itself */
+(function () {
+  var box = document.getElementById("lightbox");
+  if (!box || typeof box.showModal !== "function") return;
+  var img = document.getElementById("lbImg"), cap = document.getElementById("lbCap");
+  document.querySelectorAll("a.zoom").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      img.src = a.getAttribute("href");
+      img.alt = a.getAttribute("data-caption") || "";
+      cap.textContent = a.getAttribute("data-caption") || "";
+      box.showModal();
+    });
+  });
+  document.getElementById("lbClose").addEventListener("click", function () { box.close(); });
+  box.addEventListener("click", function (e) { if (e.target === box) box.close(); });
+})();
