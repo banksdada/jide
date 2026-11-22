@@ -204,7 +204,7 @@ tabs = ''.join('<a href="#%s">%s</a>' % (a[0], a[1]) for a in ALBUMS)
 panels = ''
 # Album playlists on YouTube (sold by the CD distributor). Albums not listed here link to the channel.
 # Song videos on YouTube (from the distributor's Dreams playlist), keyed by track slug.
-VIDEOS = {'lift-him': 'Jw1CwFnheUQ', 'i-need-you': 'JcY2KsXzGFM', 'dreams': 'GqAIA9XUMyQ', 'king-of-glory': 'e6fpl588MYc', 'you-are-my-reason': 'SuC2udU8j3U', 'gbagbo': 'qebhN-ufRzM', 'celebration-song': '2uLoS9Qq-M8', 'love-of-my-life': '1glqafXTHgI', 'gbe-mi': 'Nj1tdvdyQ1g', 'take-me-there': 'ryCc4dBAOl8', 'i-got-a-treasure': 'CU7X9s-aw9I'}
+VIDEOS = {'mo-gbinla': 'xnCuodYA28Q', 'ire-ayo': 'TkCzW8bB9YY', 'epo-mbe': '7VQLbfC2pkQ', 'iya': 'MD5NbyyuEAQ', 'ogo-ola': 'a4h3Xag11c0', 'alabaro': 'uWNDs3hSbu8', 'eleyinjuege': 'jXAB7faaf_o', 'mo-ti-dele': 'gyWxQC6--2s', 'lift-him': 'Jw1CwFnheUQ', 'i-need-you': 'JcY2KsXzGFM', 'dreams': 'GqAIA9XUMyQ', 'king-of-glory': 'e6fpl588MYc', 'you-are-my-reason': 'SuC2udU8j3U', 'gbagbo': 'qebhN-ufRzM', 'celebration-song': '2uLoS9Qq-M8', 'love-of-my-life': '1glqafXTHgI', 'gbe-mi': 'Nj1tdvdyQ1g', 'take-me-there': 'ryCc4dBAOl8', 'i-got-a-treasure': 'CU7X9s-aw9I'}
 PLAYLISTS = {k: 'https://www.youtube.com/playlist?list=' + v for k, v in {'dreams': 'OLAK5uy_mFhrmDyC8Euh-rTAOAwUa5mGVT4G667p4', 'roots': 'OLAK5uy_nTKFN2yFvqarAM1RcJZDDLPsIj1pdcJ3w'}.items()}
 for sl, name, yr, img, desc, tracks in ALBUMS:
     tl = ''.join('<li><button type="button" data-track="%s">%s</button>%s</li>' % (slug(t), t, ('<a class="tracks__yt" href="https://www.youtube.com/watch?v=%s" target="_blank" rel="noopener" aria-label="Watch %s on YouTube">YouTube</a>' % (VIDEOS[slug(t)], t)) if slug(t) in VIDEOS else '') for t in tracks)
