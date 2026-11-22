@@ -242,7 +242,7 @@ ERAS = [
         ("1999", "Invited to the State House in The Gambia to meet President Yahya Jammeh one-on-one."),
         ("Early 2000s", "Headed Abiding Word Ministries in The Gambia, and the Evangelical Mass Choir."),
         ("2000 to 2001", "Produced signature tunes and radio adverts for Sabena Airlines (now Air Brussels), Maersk Sealand and GNIC."),
-        ("2001", "Recorded Treasures at Yellowgate Studio in The Gambia, his first personal album, which included Ololufe. Wrote, performed and produced the official International Roots Homecoming Festival theme song CD, Welcome Home, for the Department of State for Tourism and Culture, The Gambia. Two of his songs, representing The Gambia, appeared on the International Year of Volunteers 2001 album, which was mastered in Germany."),
+        ("2001", "Recorded Treasures at Yellowgate Studio in The Gambia, his first personal album, which included Ololufe. Wrote, performed and produced the official International Roots Homecoming Festival theme song CD, Welcome Home, for the Department of State for Tourism and Culture, The Gambia. Commissioned to write 2 songs by the United Nations, representing The Gambia, featured on the International Year of Volunteers 2001 album, which was mastered in Germany."),
         ("2002", "Wrote music lyrics for Marcel McArthur in The Gambia."),
         ("2003", "Released So So Wonder, recorded at Yellowgate Studio with Senegambian Ndaga percussion and a Yoruba medley. Guest music minister at a concert in Sierra Leone."),
         ("2005", "Guest UK music minister at the Nigeria Turning Point Prayer Rally in Abuja Stadium, organised by Bishop Wale Oke."),
