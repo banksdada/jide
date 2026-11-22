@@ -202,6 +202,8 @@ page('index.html', 'Jide Arowolo | Afro Pop, Gospel and Worship Music',
 # ---------------- MUSIC ----------------
 tabs = ''.join('<a href="#%s">%s</a>' % (a[0], a[1]) for a in ALBUMS)
 panels = ''
+# Album playlists on YouTube (sold by the CD distributor). Albums not listed here link to the channel.
+PLAYLISTS = {k: 'https://www.youtube.com/playlist?list=' + v for k, v in {'dreams': 'OLAK5uy_mFhrmDyC8Euh-rTAOAwUa5mGVT4G667p4', 'roots': 'OLAK5uy_nTKFN2yFvqarAM1RcJZDDLPsIj1pdcJ3w'}.items()}
 for sl, name, yr, img, desc, tracks in ALBUMS:
     tl = ''.join('<li><button type="button" data-track="%s">%s</button></li>' % (slug(t), t) for t in tracks)
     panels += '''<article class="panel" id="%s" data-reveal>
@@ -213,7 +215,7 @@ for sl, name, yr, img, desc, tracks in ALBUMS:
     <ol class="tracks" aria-label="%s tracks">%s</ol>
   </div>
 </article>
-''' % (sl, cover(img, name), name, yr, desc, YT, name, tl)
+''' % (sl, cover(img, name), name, yr, desc, PLAYLISTS.get(sl, YT), name, tl)
 music = head('Music', 'Five albums in afro-beat, reggae, R&amp;B, jazz and worship. Listen on YouTube, or play a sample where one is available.', 'bg-drum.jpg', eq(40, 'eq--head')) + '''
 <nav class="tabs" aria-label="Albums"><div class="tabs__in">%s</div></nav>
 <div class="wrap panels">
