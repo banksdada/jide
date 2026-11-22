@@ -450,3 +450,10 @@ body.playing .eq i{animation-duration:calc(var(--s,1.4s)*.45)}
   .welcome #enter{position:absolute;left:var(--gutter);right:var(--gutter);bottom:max(20px,env(safe-area-inset-bottom,0px));width:auto;z-index:3}
 }
 @media (prefers-reduced-motion:reduce){.welcome.is-timing #enter::after{animation-duration:0s;display:none}.hero__portrait img{animation:none;opacity:1}}
+
+
+/* per-track YouTube links */
+.tracks li{position:relative}
+.tracks__yt{position:absolute;right:4px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;color:var(--gold);font:600 .7rem var(--sans);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s}
+.tracks__yt:hover,.tracks__yt:focus-visible{background:var(--gold);color:var(--ink)}
+.tracks li:has(.tracks__yt) button{padding-right:96px}
