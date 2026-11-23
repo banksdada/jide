@@ -111,7 +111,7 @@ MOBILEBAR = '''<div class="bookbar" id="bookbar">
 '''
 
 WELCOME = '''<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-label="Welcome">
-  <div class="welcome__photo"><img src="images/jide-portrait.webp" alt="Jide Arowolo" width="794" height="976"></div>
+  <div class="welcome__photo"><img src="images/jide-portrait.webp" alt="Jide Arowolo" width="900" height="1200"></div>
   <div class="welcome__inner">
     @@MARK@@
     <p class="welcome__greet">E kaabo &middot; Welcome</p>
@@ -301,10 +301,10 @@ story = head('Story', 'Self-taught, and always in the room where the music happe
 <section class="section">
   <div class="wrap story">
     <figure class="story__photo" data-reveal>
-      <div class="cover cover--portrait" data-title="Jide Arowolo"><img src="images/jide-portrait.webp" alt="Portrait of Jide Arowolo" width="794" height="976" onerror="this.remove()"></div>
+      <div class="cover cover--portrait" data-title="Jide Arowolo"><img src="images/jide-portrait.webp" alt="Portrait of Jide Arowolo" width="900" height="1200" onerror="this.remove()"></div>
     </figure>
     <div class="story__text" data-reveal>
-      <p>Born in South Western Nigeria, Jide recognised his musicianship in his late teens. He taught himself, and has spent more than two decades in mainstage music, songwriting and public worship leading, gaining recognition especially in gospel music.</p>
+      <p>Born in South Western Nigeria, Jide recognised his musicianship in his late teens. He taught himself, and has spent 30+ years in mainstage music, songwriting and public worship leading, gaining recognition especially in gospel music.</p>
       <p>He is a highly prolific songwriter, with a large catalogue of original songs in ballad, pop, reggae, R&amp;B and contemporary afro-rhythms. One of them is the popular Ololufe.</p>
       <p>He has taught many musicians, some now well-known producers around the world, and has been technical adviser and producer to Christian bands and artistes. He has led seminars and training on praise and worship and sound management in universities, churches and conferences across the world.</p>
       <ul class="facts" aria-label="Career highlights">
