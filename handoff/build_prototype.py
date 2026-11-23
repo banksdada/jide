@@ -309,7 +309,7 @@ story = head('Story', 'Self-taught, and always in the room where the music happe
       <p>He has taught many musicians, some now well-known producers around the world, and has been technical adviser and producer to Christian bands and artistes. He has led seminars and training on praise and worship and sound management in universities, churches and conferences across the world.</p>
       <ul class="facts" aria-label="Career highlights">
         <li><strong>5</strong> albums</li>
-        <li><strong>20+</strong> years in mainstage music</li>
+        <li><strong>30+</strong> years in mainstage music</li>
         <li><strong>1</strong> London studio</li>
       </ul>
     </div>
