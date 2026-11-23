@@ -81,6 +81,9 @@ Filament resources: Career (events, places and highlights), Album (with a reorde
 ## 7. Behaviour and security
 
 - Booking and guest book submissions: server-side validation matching the prototype rules, a honeypot field, rate limiting, and optional Cloudflare Turnstile.
+- **Notification email (confirmed by the client, Nov 2026): `jidearowolo@aol.com`.** Seed it as the booking notification address in Settings. On a new booking, email that address. Also notify it when a new guest book message is waiting for approval.
+- **Hosting: Coolify on the agency's own server** (Docker deploy). Provide a Dockerfile, a queue worker and scheduler, persistent storage for uploads and the database, and all secrets (app key, database, mail) as environment variables.
+- **Mail transport is undecided.** Configure Laravel mail purely through environment variables (`MAIL_MAILER`, host, port, username, password, from address) so the sender can be set at deploy time, for example the agency's Postal SMTP server. Test deliverability to the AOL address, as AOL can be strict about new senders (set up SPF, DKIM and DMARC on the sending domain).
 - On a new booking, email the notification address from Settings. Sending an automatic confirmation to the enquirer is a decision for the client; default to yes with plain text.
 - Guest messages are never public until approved.
 - Escape all output. Audio uploads limited to MP3, with a size cap.
@@ -106,7 +109,7 @@ Filament resources: Career (events, places and highlights), Album (with a reorde
 
 ## 10. Open items for the client
 
-1. Booking notification email address and the public contact details to show, if any.
+1. ~~Booking notification email address~~ Confirmed: `jidearowolo@aol.com`. Still open: the public contact details to show, if any, and the sending address and mail server for outgoing mail.
 2. Reactivating `jidearowolo.com` and pointing it at the host.
 3. YouTube: album playlist links or video IDs. The channel is an auto-generated "Topic" channel, so the uploads playlist may not embed. Test early.
 4. MP3 samples, if any, named after each track slug.
