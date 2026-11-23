@@ -281,7 +281,7 @@ body.playing .eq i{animation-duration:calc(var(--s,1.4s)*.45)}
 @media (min-width:700px){
   .minis{grid-template-columns:repeat(5,1fr)}
   .panel{grid-template-columns:300px 1fr;gap:44px;align-items:start}
-  .panel .tracks{columns:2;column-gap:28px}
+  .panel .tracks{columns:1;column-gap:28px}
   .panel .tracks li{break-inside:avoid}
   .beyond{grid-template-columns:repeat(2,1fr)}
   .timeline::before{left:7px}
@@ -408,36 +408,30 @@ body.playing .eq i{animation-duration:calc(var(--s,1.4s)*.45)}
 @media (prefers-reduced-motion:reduce){.bookbar__eq i{transform:scaleY(.7)!important}}
 
 
-/* ---------- Home hero: close-up portrait with the name across the base ---------- */
+/* ---------- Home hero: photo on the right, text on the left ---------- */
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.hero.hero--name{display:grid;grid-template-columns:1fr;gap:0;max-width:1500px;padding:76px var(--gutter) 0;overflow:visible;align-items:stretch}
-.hero__portrait{position:relative;z-index:1;overflow:hidden;height:min(46svh,440px);min-height:280px;-webkit-mask-image:linear-gradient(180deg,#000 66%,transparent 100%);mask-image:linear-gradient(180deg,#000 66%,transparent 100%)}
-.hero__portrait::before{content:"";position:absolute;inset:6% 0 0;background:radial-gradient(closest-side at 50% 58%,rgba(201,162,75,.42),rgba(201,162,75,.12) 55%,transparent 78%);z-index:-1;animation:glow 7s ease-in-out infinite alternate}
-.hero__portrait img{position:absolute;left:50%;top:0;height:142%;width:auto;max-width:none;transform:translateX(-50%);animation:heroIn 1.1s .1s var(--ease) both}
-.hero__name{position:relative;z-index:0;margin:-3.2vw 0 0;padding:0;font:inherit;line-height:0}
-.hero__jide,.hero__arowolo{display:block;width:100%;height:auto;overflow:visible}
-.hero__name text{font-family:var(--serif);font-variation-settings:"opsz" 96}
-.hero__jide{animation:rise 1.1s .3s var(--ease) both}
-.hero__arowolo{width:62%;margin:clamp(14px,2.4vw,30px) auto 0;animation:rise 1.1s .5s var(--ease) both}
-.hero__intro{position:relative;z-index:2;text-align:center;padding:clamp(24px,4vw,40px) 0 clamp(48px,8vw,72px)}
-.hero__intro .kicker{margin:0 0 .6rem}
-.hero__tagline{font:500 clamp(1.5rem,5.2vw,2.2rem)/1.15 var(--serif);margin:0 0 .9rem}
+.hero.hero--photo{display:flex;flex-direction:column;gap:0;max-width:1320px;padding:72px var(--gutter) 40px;overflow:visible}
+.hero__portrait{position:relative;order:-1;height:min(58svh,520px);min-height:340px;margin:0 calc(var(--gutter) * -1);-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 100%);mask-image:linear-gradient(180deg,#000 62%,transparent 100%)}
+.hero__portrait::before{content:"";position:absolute;inset:4% 0 0;background:radial-gradient(closest-side at 50% 42%,rgba(201,162,75,.5),rgba(201,162,75,.14) 58%,transparent 80%);animation:glow 7s ease-in-out infinite alternate}
+.hero__portrait img{position:relative;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 8%;animation:heroIn 1.1s .1s var(--ease) both}
+.hero__text{position:relative;z-index:2;margin-top:-28px}
+.hero__text .kicker{margin:0 0 .5rem}
+.hero__name{font:700 clamp(3.2rem,16vw,4.6rem)/.95 var(--serif);letter-spacing:-.02em;margin:0 0 .7rem;background:linear-gradient(180deg,#f3dfa6,#c9a24b 55%,#8a6a22);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero__name span{display:block;font-weight:500;font-size:.62em;letter-spacing:.14em;text-transform:uppercase;margin-top:.12em;background:none;color:var(--ivory);-webkit-text-fill-color:var(--ivory)}
+.hero__tagline{font:500 clamp(1.4rem,5.4vw,1.9rem)/1.2 var(--serif);margin:0 0 .9rem}
 .hero__tagline em{color:var(--brass)}
-.hero__intro .hero__lede{margin:0 auto 1.6rem;max-width:46ch}
-.hero__intro .hero__cta{justify-content:center}
-@media (min-width:960px){
-  .hero.hero--name{padding-top:88px}
-  .hero__portrait{height:min(52svh,560px)}
-  .hero__arowolo{width:54%}
-  .hero__intro{position:absolute;left:var(--gutter);top:140px;bottom:auto;text-align:left;padding:0;max-width:340px}
-  .hero__intro .hero__lede{margin-left:0}
-  .hero__intro .hero__cta{justify-content:flex-start}
-  .hero__tagline{font-size:clamp(1.6rem,2.4vw,2.3rem)}
+.hero__text .hero__lede{margin:0 0 1.5rem;max-width:46ch}
+@media (min-width:820px){
+  .hero.hero--photo{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:32px;padding-top:112px;padding-bottom:56px;min-height:min(100svh,880px)}
+  .hero__portrait{order:0;margin:0;height:min(80svh,780px);min-height:0;-webkit-mask-image:linear-gradient(180deg,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,#000 90%,transparent 100%)}
+  .hero__portrait::before{inset:8% -6% 4%;background:radial-gradient(closest-side at 50% 46%,rgba(201,162,75,.55),rgba(201,162,75,.16) 58%,transparent 80%)}
+  .hero__portrait img{object-fit:contain;object-position:50% 100%}
+  .hero__text{margin-top:0}
+  .hero__name{font-size:clamp(4rem,7vw,6.4rem)}
+  .hero__tagline{font-size:clamp(1.6rem,2.6vw,2.2rem)}
 }
-@media (min-width:960px) and (max-width:1199px){ .hero__intro{max-width:260px} .hero__intro .hero__lede{font-size:1rem} }
-@media (prefers-reduced-motion:reduce){.hero__portrait img,.hero__jide,.hero__arowolo,.hero__portrait::before{animation:none}}
-
-@keyframes heroIn{from{opacity:0;transform:translateX(-50%) translateY(24px)}to{opacity:1;transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.hero__portrait img,.hero__portrait::before{animation:none}}
+@keyframes heroIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .hero-wrap .eq--wide{height:84px}
 
 /* welcome: opens by itself, with a thin countdown line on the button */
@@ -457,3 +451,6 @@ body.playing .eq i{animation-duration:calc(var(--s,1.4s)*.45)}
 .tracks__yt{position:absolute;right:4px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;color:var(--gold);font:600 .7rem var(--sans);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s}
 .tracks__yt:hover,.tracks__yt:focus-visible{background:var(--gold);color:var(--ink)}
 .tracks li:has(.tracks__yt) button{padding-right:96px}
+
+.panel__body{min-width:0}
+@media (min-width:1100px){.panel .tracks{columns:2}}

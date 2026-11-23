@@ -150,19 +150,22 @@ def cover(img, title, w=500, lazy=True):
 # ---------------- HOME ----------------
 minis = ''.join('<a class="mini" href="music.html#%s">%s<span class="mini__name">%s</span><span class="mini__year">%s</span></a>' % (a[0], cover(a[3], a[1], 400), a[1], a[2]) for a in ALBUMS)
 home = '''<div class="hero-wrap">
-  <section class="hero" id="top">
+  <section class="hero hero--photo" id="top">
     <div class="hero__text">
       <p class="kicker">Afro pop, gospel and worship</p>
-      <h1 class="hero__title">Music with roots, <em>made to lift.</em></h1>
+      <h1 class="hero__name">Jide <span>Arowolo</span></h1>
+      <p class="hero__tagline">Music with roots, <em>made to lift.</em></p>
       <p class="hero__lede">Self-taught musician, songwriter and producer. Five albums blending afro-beat, reggae, R&amp;B, jazz and Yoruba folk, recorded in Gambia and London.</p>
       <div class="hero__cta">
         <a class="btn btn--gold" href="music.html">Listen now</a>
         <a class="btn btn--ghost" href="book.html">Book Jide</a>
       </div>
     </div>
-    <div class="hero__art">
-      <div class="cover cover--hero" data-title="Dreams"><img src="images/jide-dreams.jpg" alt="Jide Arowolo on the cover of the album Dreams" width="880" height="828" onerror="this.remove()"></div>
-      <div class="cover cover--back" data-title="Roots"><img src="images/jide-roots.jpg" alt="Jide Arowolo on the cover of the album Roots" width="400" height="400" loading="lazy" onerror="this.remove()"></div>
+    <div class="hero__portrait">
+      <picture>
+        <source media="(min-width:820px)" srcset="images/jide-hero-stool.webp" width="906" height="1000">
+        <img src="images/jide-hero-close.webp" alt="Jide Arowolo seated with his hands clasped, smiling" width="900" height="1200" fetchpriority="high">
+      </picture>
     </div>
   </section>
   %s
