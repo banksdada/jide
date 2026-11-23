@@ -167,7 +167,7 @@ Filament resources: Career (events, places and highlights), Album (with a reorde
 |---|---|
 | `images/jide-dreams.jpg`, `jide-roots.jpg`, `jide-treasures.jpg` | Client-supplied upscales, cleaned. Final. |
 | `images/jide-love-connection.jpg`, `jide-so-so-wonder.jpg` | 3x upscales of small thumbnails from the old site. Soft. Replace when better scans arrive. |
-| `images/jide-hero-stool.webp`, `jide-hero-close.webp` | Home header photos supplied by the client (Nov 2026), cut out from white. Stool (full body) shows from 820px up, close-up below. Originals in `images/source/`. |
+| `images/jide-hero-half.webp`, `jide-hero-close.webp` | Home header photos supplied by the client (Nov 2026), cut out from white. Half-length crop (elbows up) shows from 820px up, close-up below. Originals in `images/source/`. |
 | `images/jide-portrait.webp` | Sharper client-supplied portrait, cut out from its white background with sloped shoulders and a warmed collar. Original in `images/source/jide-portrait-original.jpg`. A fresh shot on a dark background would still be better. |
 | `images/jide-stage.jpg`, `jide-guitar.jpg` | Video stills with burned-in "T2GB'08" text. Replace. |
 | `images/jide-studio.jpg` | Acceptable. |
