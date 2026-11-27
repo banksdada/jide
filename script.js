@@ -11,7 +11,7 @@ var WELCOME_AUTO_SECONDS = 8;
 // Form service address (Formspree, Basin, Getform and similar). Leave empty for a preview-only form.
 var FORM_ENDPOINT = "";
 // Until a form service address is set above, the booking form opens the visitor's email app addressed here.
-var BOOKINGS_EMAIL = "bookings@jidearowolo.com";
+var BOOKINGS_EMAIL = "info@jidearowolo.com";
 // Sample tracks: put MP3 files in the audio folder, named after each track, e.g. audio/ololufe.mp3
 var AUDIO_FOLDER = "audio/";
 /* ------------------------------------------- */

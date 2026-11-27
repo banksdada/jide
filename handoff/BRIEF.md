@@ -81,7 +81,7 @@ Filament resources: Career (events, places and highlights), Album (with a reorde
 ## 7. Behaviour and security
 
 - Booking and guest book submissions: server-side validation matching the prototype rules, a honeypot field, rate limiting, and optional Cloudflare Turnstile.
-- **Mailboxes (set up Nov 2026):** `bookings@jidearowolo.com` receives booking enquiries; `info@jidearowolo.com` is the public contact address, shown in every page footer. (An earlier note named `jidearowolo@aol.com`; use the two new addresses unless the client says otherwise.) Seed `bookings@` as the notification address in Settings.
+- **Mailboxes (set up Nov 2026):** `info@jidearowolo.com` receives booking enquiries (client correction, 27 Nov 2026) and is the public contact address shown in every page footer. A `bookings@jidearowolo.com` mailbox also exists but is not used by the site. (An earlier note named `jidearowolo@aol.com`; use the two new addresses unless the client says otherwise.) Seed `info@` as the notification address in Settings.
 - **Notification email (earlier note, superseded by the mailboxes above): `jidearowolo@aol.com`.** Seed it as the booking notification address in Settings. On a new booking, email that address. Also notify it when a new guest book message is waiting for approval.
 - **Hosting: Coolify on the agency's own server** (Docker deploy). Provide a Dockerfile, a queue worker and scheduler, persistent storage for uploads and the database, and all secrets (app key, database, mail) as environment variables.
 - **Mail transport is undecided.** Configure Laravel mail purely through environment variables (`MAIL_MAILER`, host, port, username, password, from address) so the sender can be set at deploy time, for example the agency's Postal SMTP server. Test deliverability to the AOL address, as AOL can be strict about new senders (set up SPF, DKIM and DMARC on the sending domain).
@@ -183,7 +183,7 @@ Filament resources: Career (events, places and highlights), Album (with a reorde
 
 ## 15. Not done in the prototype
 
-- The booking form has no server yet. Until `FORM_ENDPOINT` in `script.js` is set, submitting opens the visitor's email app with the details pre-filled, addressed to `bookings@jidearowolo.com`. To send from the page itself, create a Formspree (or similar) form that delivers to `bookings@`, and paste its address into `FORM_ENDPOINT`.
+- The booking form has no server yet. Until `FORM_ENDPOINT` in `script.js` is set, submitting opens the visitor's email app with the details pre-filled, addressed to `info@jidearowolo.com`. To send from the page itself, create a Formspree (or similar) form that delivers to `info@`, and paste its address into `FORM_ENDPOINT`.
 - The YouTube embed uses the channel's uploads playlist. It has not been tested on a live host, and a "Topic" channel may not allow embedding.
 - No privacy notice or consent lines.
 - No events. The empty state is built but there is no events section on the page yet.
