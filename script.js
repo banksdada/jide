@@ -10,6 +10,8 @@ var YOUTUBE_VIDEO_IDS = [];
 var WELCOME_AUTO_SECONDS = 8;
 // Form service address (Formspree, Basin, Getform and similar). Leave empty for a preview-only form.
 var FORM_ENDPOINT = "";
+// Until a form service address is set above, the booking form opens the visitor's email app addressed here.
+var BOOKINGS_EMAIL = "bookings@jidearowolo.com";
 // Sample tracks: put MP3 files in the audio folder, named after each track, e.g. audio/ololufe.mp3
 var AUDIO_FOLDER = "audio/";
 /* ------------------------------------------- */
@@ -211,13 +213,14 @@ var AUDIO_FOLDER = "audio/";
       .catch(function () {});
   }
 
-  /* Forms (booking and guest book) */
+  /* Booking form */
   function wireForm(form, status, rules, okMsg) {
     if (!form) return;
     function fail(msg, field) {
       status.textContent = msg; status.classList.add("is-error");
       if (field) { field.classList.add("err"); field.focus(); }
     }
+    var honey = form.querySelector('[name="_gotcha"]');
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       status.classList.remove("is-error"); status.textContent = "";
@@ -226,7 +229,18 @@ var AUDIO_FOLDER = "audio/";
         var r = rules[i], el = $(r.sel, form);
         if (!r.ok(el.value)) return fail(r.msg, el);
       }
-      if (!FORM_ENDPOINT) { status.textContent = "Preview only: the form is not connected yet, so nothing was sent."; return; }
+      if (honey && honey.value) return;
+      if (!FORM_ENDPOINT) {
+        var lines = [];
+        $all("input[name],select[name],textarea[name]", form).forEach(function (f) {
+          if (f.type === "hidden" || f.name === "_gotcha" || !f.value) return;
+          var lab = form.querySelector('label[for="' + f.id + '"]');
+          lines.push((lab ? lab.textContent : f.name) + ": " + f.value);
+        });
+        window.location.href = "mailto:" + BOOKINGS_EMAIL + "?subject=" + encodeURIComponent("Booking enquiry from jidearowolo.com") + "&body=" + encodeURIComponent(lines.join("\n"));
+        status.textContent = "Opening your email app with your details filled in. Press send there to finish.";
+        return;
+      }
       status.textContent = "Sending...";
       fetch(FORM_ENDPOINT, { method: "POST", headers: { "Accept": "application/json" }, body: new FormData(form) })
         .then(function (r) { if (!r.ok) throw new Error(); form.reset(); status.textContent = okMsg; })
@@ -239,10 +253,6 @@ var AUDIO_FOLDER = "audio/";
     { sel: "#type", ok: function (v) { return !!v; }, msg: "Choose what you are booking for." },
     { sel: "#msg", ok: function (v) { return v.trim().length >= 15; }, msg: "Add a few details about your event (at least a sentence)." }
   ], "Sent. You will get a reply by email.");
-  wireForm($("#guestForm"), $("#guestStatus"), [
-    { sel: "#gname", ok: function (v) { return v.trim().length > 0; }, msg: "Enter your name." },
-    { sel: "#gmsg", ok: function (v) { return v.trim().length >= 5; }, msg: "Write a short message." }
-  ], "Thank you. Your message will appear after review.");
 
   var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
 })();

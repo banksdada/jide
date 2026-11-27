@@ -90,6 +90,7 @@ FOOT = '''<footer class="footer">
   <a class="footer__logo" href="index.html" aria-label="Jide Arowolo, home"><img src="logo/jide-arowolo-wordmark.svg" alt="Jide Arowolo" width="360" height="94"></a>
   <p>Afro pop, gospel and worship music. London.</p>
   <p class="footer__links"><a href="index.html">Home</a> <a href="music.html">Music</a> <a href="story.html">Story</a> <a href="watch.html">Watch</a> <a href="book.html">Book Jide</a> <a href="%s" target="_blank" rel="noopener">YouTube</a></p>
+  <p class="footer__contact">Contact: <a href="mailto:info@jidearowolo.com">info@jidearowolo.com</a></p>
   <p class="footer__small">&copy; <span id="year"></span> Jide Arowolo. All rights reserved.</p>
 </footer>
 ''' % YT
@@ -394,6 +395,9 @@ book = head('Book Jide', 'Tell us about your event and you will get a reply with
       </ul>
     </div>
     <form class="form" id="bookForm" novalidate data-reveal>
+      <input type="hidden" name="_subject" value="New booking enquiry from jidearowolo.com">
+      <input type="hidden" name="form_type" value="booking">
+      <div class="hp" aria-hidden="true"><label>Leave this empty <input name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
       <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required></div>
       <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
       <div class="field"><label for="type">What are you booking for?</label>
@@ -422,24 +426,7 @@ book = head('Book Jide', 'Tell us about your event and you will get a reply with
     </form>
   </div>
 </section>
-
-<section class="section section--story" id="guestbook" aria-labelledby="gbH">
-  <div class="wrap book">
-    <div class="book__intro" data-reveal>
-      <h2 id="gbH" class="h2">Guest book</h2>
-      <p>Jide's old welcome said: &ldquo;Please do your best to sign my guest book before leaving, I'd love to hear from you.&rdquo; Leave a message. New messages appear after review.</p>
-      <div class="guests" id="guestList"><p class="empty"><strong>No messages yet.</strong> Be the first to sign.</p></div>
-    </div>
-    <form class="form" id="guestForm" novalidate data-reveal>
-      <div class="field"><label for="gname">Your name</label><input id="gname" name="name" autocomplete="name" required></div>
-      <div class="field"><label for="gplace">Where are you writing from?</label><input id="gplace" name="place" placeholder="City or country"></div>
-      <div class="field"><label for="gmsg">Your message</label><textarea id="gmsg" name="msg" rows="4" required></textarea></div>
-      <input type="hidden" name="form_type" value="guestbook">
-      <button class="btn btn--gold" type="submit">Sign the guest book</button>
-      <p class="form__status" id="guestStatus" role="status" aria-live="polite"></p>
-    </form>
-  </div>
-</section>'''
+'''
 page('book.html', 'Book Jide Arowolo | Concerts, Worship and Workshops',
      'Book Jide Arowolo for concerts, worship leading, conferences, workshops, music direction and studio production. Tell us about your event.',
      [{"@type": "ContactPage", "name": "Book Jide Arowolo", "url": SITE + "book.html"}], book, 'book')

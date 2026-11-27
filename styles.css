@@ -455,3 +455,7 @@ body.playing .eq i{animation-duration:calc(var(--s,1.4s)*.45)}
 
 .panel__body{min-width:0}
 @media (min-width:1100px){.panel .tracks{columns:2}}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.footer__contact{margin:.4rem 0 0;font-size:.95rem}
+.footer__contact a{color:var(--gold)}
