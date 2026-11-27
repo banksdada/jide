@@ -9,7 +9,7 @@ var YOUTUBE_VIDEO_IDS = [];
 // Welcome screen: seconds before the site opens by itself (0 turns this off). Visitors can also swipe, scroll, press a key or tap the button.
 var WELCOME_AUTO_SECONDS = 8;
 // Form service address (Formspree, Basin, Getform and similar). Leave empty for a preview-only form.
-var FORM_ENDPOINT = "";
+var FORM_ENDPOINT = "https://formspree.io/f/xjywzdzy";
 // Until a form service address is set above, the booking form opens the visitor's email app addressed here.
 var BOOKINGS_EMAIL = "info@jidearowolo.com";
 // Sample tracks: put MP3 files in the audio folder, named after each track, e.g. audio/ololufe.mp3

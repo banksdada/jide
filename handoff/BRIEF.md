@@ -183,7 +183,7 @@ Filament resources: Career (events, places and highlights), Album (with a reorde
 
 ## 15. Not done in the prototype
 
-- The booking form has no server yet. Until `FORM_ENDPOINT` in `script.js` is set, submitting opens the visitor's email app with the details pre-filled, addressed to `info@jidearowolo.com`. To send from the page itself, create a Formspree (or similar) form that delivers to `info@`, and paste its address into `FORM_ENDPOINT`.
+- The booking form has no server yet. Until `FORM_ENDPOINT` in `script.js` is set, submitting opens the visitor's email app with the details pre-filled, addressed to `info@jidearowolo.com`. (Update 27 Nov 2026: a Formspree form, `https://formspree.io/f/xjywzdzy`, delivering to `info@`, is now set in `FORM_ENDPOINT`; the email-app fallback only applies if that is cleared.) To send from the page itself, create a Formspree (or similar) form that delivers to `info@`, and paste its address into `FORM_ENDPOINT`.
 - The YouTube embed uses the channel's uploads playlist. It has not been tested on a live host, and a "Topic" channel may not allow embedding.
 - No privacy notice or consent lines.
 - No events. The empty state is built but there is no events section on the page yet.
